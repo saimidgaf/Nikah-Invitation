@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Asjad &amp; Amna — Nikah Invitation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Playfair+Display:ital,wght@0,500;0,600;1,500&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --maroon-deep:#4d0f1a;
+    --maroon-mid:#6d1723;
+    --maroon-soft:#7c2431;
+    --cream:#f7efe4;
+    --cream-soft:#fbf6ee;
+    --gold:#c69a5c;
+    --gold-light:#e8cfa0;
+    --gold-dim:#a9865198;
+    --ink:#3c1116;
+    --ink-soft:#6b3d3f;
+  }
+
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:#2a2a2a;
+    font-family:'Cormorant Garamond', serif;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  .phone{
+    max-width:480px;
+    margin:0 auto;
+    background:var(--cream);
+    position:relative;
+    overflow:hidden;
+    box-shadow:0 0 60px rgba(0,0,0,0.5);
+    scroll-behavior:smooth;
+  }
+
+  section{
+    min-height:100vh;
+    width:100%;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:64px 36px;
+    position:relative;
+    overflow:hidden;
+  }
+
+  /* ---------- shared dots ---------- */
+  .dot{
+    position:absolute;
+    width:5px;height:5px;
+    border-radius:50%;
+    background:var(--gold);
+    opacity:0.55;
+  }
+
+  /* ---------- eyebrow / divider ---------- */
+  .eyebrow{
+    font-family:'Cormorant Garamond', serif;
+    letter-spacing:6px;
+    font-size:14px;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+    margin:0 0 18px;
+  }
+  .eyebrow.on-dark{ color:var(--gold-light); }
+
+  .divider{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:14px;
+    width:200px;
+    margin:18px auto;
+  }
+  .divider .line{ flex:1; height:1px; background:var(--gold-dim); }
+  .divider .diamond{
+    width:6px;height:6px;
+    background:var(--gold);
+    transform:rotate(45deg);
+    flex:none;
+  }
+
+  /* ---------- reveal animation ---------- */
+  [data-reveal]{
+    opacity:0;
+    transform:translateY(18px);
+    transition:opacity 1s ease, transform 1s ease;
+  }
+  [data-reveal].in-view{
+    opacity:1;
+    transform:translateY(0);
+  }
+  .stack{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    width:100%;
+  }
+
+  /* ================= COVER ================= */
+  #cover{
+    background:radial-gradient(120% 100% at 50% 0%, var(--maroon-soft) 0%, var(--maroon-deep) 65%);
+    color:var(--cream);
+  }
+  .frame{
+    border:1px solid var(--gold-dim);
+    padding:46px 26px;
+    width:100%;
+    max-width:340px;
+    position:relative;
+  }
+  .frame::before{
+    content:"";
+    position:absolute;
+    inset:8px;
+    border:1px solid var(--gold-dim);
+    pointer-events:none;
+  }
+  .monogram-big{
+    font-family:'Alex Brush', cursive;
+    font-size:80px;
+    line-height:1;
+    color:var(--gold-light);
+    margin:6px 0 2px;
+  }
+  .names-sub{
+    font-family:'Cormorant Garamond', serif;
+    font-style:italic;
+    font-size:19px;
+    color:var(--cream);
+    letter-spacing:0.5px;
+    margin:14px 0 22px;
+  }
+  .date-line{
+    font-size:15px;
+    letter-spacing:5px;
+    color:var(--gold-light);
+    margin-bottom:26px;
+  }
+  .btn{
+    display:inline-block;
+    border:1px solid var(--gold);
+    color:var(--gold-light);
+    text-decoration:none;
+    font-size:13px;
+    letter-spacing:4px;
+    text-transform:uppercase;
+    padding:14px 26px;
+    font-family:'Cormorant Garamond', serif;
+    cursor:pointer;
+    background:transparent;
+    transition:background 0.3s ease, color 0.3s ease;
+  }
+  .btn:hover{ background:var(--gold); color:var(--maroon-deep); }
+
+  /* ================= NAMES ================= */
+  #names{ background:var(--cream); color:var(--ink); }
+  .monogram-script{
+    font-family:'Alex Brush', cursive;
+    font-size:68px;
+    color:var(--maroon-deep);
+    line-height:1.15;
+    margin:6px 0 4px;
+  }
+  .monogram-script .amp{ color:var(--gold); }
+  .lead-italic{
+    font-style:italic;
+    font-size:21px;
+    color:var(--ink-soft);
+    margin:8px 0 4px;
+  }
+  .lead-plain{
+    font-size:19px;
+    color:var(--ink-soft);
+    margin-bottom:36px;
+  }
+  .hint{
+    font-size:12px;
+    letter-spacing:4px;
+    text-transform:uppercase;
+    color:#b79a8a;
+    margin-top:20px;
+  }
+
+  /* ================= WELCOME / VERSE ================= */
+  #welcome{ background:var(--maroon-deep); color:var(--cream); }
+  .oval{
+    width:96px;height:118px;
+    border:1px solid var(--gold-dim);
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    margin:0 auto 30px;
+  }
+  .oval span{
+    font-family:'Alex Brush', cursive;
+    font-size:27px;
+    color:var(--gold-light);
+  }
+  .arabic{
+    font-family:'Amiri', serif;
+    color:var(--gold-light);
+    line-height:2.1;
+    margin:6px 0 26px;
+  }
+  .arabic.bismillah{ font-size:26px; }
+  .arabic.ayah{ font-size:21px; }
+  .verse-en{
+    font-size:17px;
+    font-style:italic;
+    color:#e7d3c9;
+    line-height:1.7;
+    margin-bottom:30px;
+  }
+  .welcome-msg{
+    font-size:19px;
+    line-height:1.8;
+    color:var(--cream);
+    margin-bottom:14px;
+  }
+  .names-urdu{
+    font-family:'Amiri', serif;
+    font-size:28px;
+    color:var(--gold-light);
+    margin:18px 0;
+    letter-spacing:2px;
+  }
+  .welcome-close{
+    font-style:italic;
+    font-size:18px;
+    color:var(--gold-light);
+    margin-top:10px;
+  }
+
+  /* ================= COUNTDOWN ================= */
+  #countdown{ background:var(--cream); color:var(--ink); padding-top:80px; padding-bottom:80px;}
+  .cd-title{
+    font-family:'Playfair Display', serif;
+    font-size:40px;
+    font-weight:600;
+    color:var(--maroon-deep);
+    margin:20px 0 6px;
+  }
+  .cd-sub{
+    font-style:italic;
+    font-size:18px;
+    color:var(--ink-soft);
+    margin-bottom:40px;
+  }
+  .cd-row{
+    display:flex;
+    gap:28px;
+    align-items:flex-end;
+    margin-bottom:10px;
+  }
+  .cd-num{
+    font-family:'Playfair Display', serif;
+    font-size:46px;
+    color:var(--maroon-deep);
+    font-weight:600;
+    line-height:1;
+  }
+  .cd-label{
+    font-size:12px;
+    letter-spacing:3px;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+    margin-top:8px;
+    display:block;
+  }
+  .cd-sep{ font-size:30px; color:var(--gold); }
+
+  /* ================= VENUE ================= */
+  #venue{ background:var(--maroon-deep); color:var(--cream); }
+  .venue-title{
+    font-family:'Playfair Display', serif;
+    font-size:36px;
+    font-weight:600;
+    color:var(--cream-soft);
+    margin-bottom:6px;
+  }
+  .venue-card{
+    width:100%;
+    max-width:320px;
+    min-height:280px;
+    background:var(--cream-soft);
+    border-radius:16px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    margin:26px auto;
+    padding:26px 14px 30px;
+    position:relative;
+    border:1px solid var(--gold-dim);
+  }
+  .venue-art{
+    width:180px;
+    height:auto;
+    margin-bottom:6px;
+  }
+  .venue-card .corner{
+    position:absolute;
+    width:22px;height:22px;
+    border:1.5px solid var(--gold);
+  }
+  .corner.tl{ top:14px; left:14px; border-right:none; border-bottom:none; }
+  .corner.tr{ top:14px; right:14px; border-left:none; border-bottom:none; }
+  .corner.bl{ bottom:14px; left:14px; border-right:none; border-top:none; }
+  .corner.br{ bottom:14px; right:14px; border-left:none; border-top:none; }
+  .venue-name{
+    font-family:'Playfair Display', serif;
+    font-style:italic;
+    font-size:22px;
+    color:var(--maroon-deep);
+    margin-bottom:10px;
+    padding:0 14px;
+    line-height:1.4;
+    text-align:center;
+  }
+  .venue-sub{
+    font-size:16px;
+    color:var(--ink-soft);
+    letter-spacing:0.5px;
+    line-height:1.6;
+    padding:0 14px;
+    text-align:center;
+  }
+  .venue-note{
+    font-size:13px;
+    color:var(--ink-soft);
+    letter-spacing:1px;
+  }
+  .venue-desc{
+    font-size:18px;
+    line-height:1.7;
+    color:#f0dfd2;
+    margin-bottom:26px;
+    text-align:center;
+  }
+  .time-num{
+    font-family:'Playfair Display', serif;
+    font-size:34px;
+    color:var(--cream-soft);
+    font-weight:500;
+    letter-spacing:0.5px;
+  }
+  .time-num sup{ font-size:15px; letter-spacing:1px; margin-left:4px;}
+  .venue-date{
+    font-style:italic;
+    font-size:21px;
+    color:var(--gold-light);
+    margin:12px 0 22px;
+  }
+  .venue-fine{
+    font-size:17px;
+    color:#e7d3c9;
+    line-height:1.7;
+    max-width:320px;
+    margin-left:auto;
+    margin-right:auto;
+    text-align:center;
+  }
+
+  /* ================= ADULTS-ONLY NOTICE ================= */
+  #notice{ background:var(--maroon-deep); min-height:auto; padding:60px 36px; }
+  .notice-card{
+    position:relative;
+    width:100%;
+    max-width:300px;
+    padding:38px 26px;
+    border-radius:14px;
+    border:1px solid var(--gold-dim);
+  }
+  .notice-text{
+    font-style:italic;
+    font-size:19px;
+    line-height:1.75;
+    color:var(--cream-soft);
+    margin:0;
+  }
+  .ncorner{
+    position:absolute;
+    width:18px;height:18px;
+    border:1.4px solid var(--gold);
+  }
+  .ncorner.tl{ top:10px; left:10px; border-right:none; border-bottom:none; }
+  .ncorner.tr{ top:10px; right:10px; border-left:none; border-bottom:none; }
+  .ncorner.bl{ bottom:10px; left:10px; border-right:none; border-top:none; }
+  .ncorner.br{ bottom:10px; right:10px; border-left:none; border-top:none; }
+
+  /* ================= CLOSING ================= */
+  #closing{ background:var(--maroon-deep); color:var(--cream); }
+  .close-names{
+    font-family:'Alex Brush', cursive;
+    font-size:54px;
+    color:var(--gold-light);
+    line-height:1.2;
+    margin-bottom:6px;
+  }
+  .close-date{
+    font-size:14px;
+    letter-spacing:4px;
+    color:var(--gold);
+    text-transform:uppercase;
+    margin-bottom:34px;
+  }
+  .rings{ width:92px; height:auto; margin:6px 0 30px; }
+  .close-msg{
+    font-size:19px;
+    line-height:1.8;
+    color:#f0dfd2;
+    max-width:320px;
+    margin-bottom:30px;
+  }
+  .contact-block{
+    width:100%;
+    max-width:300px;
+  }
+  .contact-side{
+    margin-bottom:26px;
+  }
+  .contact-label{
+    font-size:12px;
+    letter-spacing:4px;
+    text-transform:uppercase;
+    color:var(--gold);
+    margin-bottom:12px;
+  }
+  .contact-nums{
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+    align-items:center;
+  }
+  .contact-nums a{
+    color:var(--cream-soft);
+    text-decoration:none;
+    font-size:19px;
+    letter-spacing:1px;
+    font-family:'Cormorant Garamond', serif;
+    transition:color 0.3s ease;
+  }
+  .contact-nums a:hover{ color:var(--gold-light); }
+
+  footer{
+    text-align:center;
+    padding:22px;
+    font-size:12px;
+    letter-spacing:2px;
+    color:var(--gold-dim);
+    background:var(--maroon-deep);
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    [data-reveal]{ transition:none; opacity:1; transform:none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="phone" id="phone">
+
+  <!-- ================= COVER ================= -->
+  <section id="cover">
+    <div class="dot" style="top:8%; left:20%;"></div>
+    <div class="dot" style="top:14%; right:16%;"></div>
+    <div class="dot" style="bottom:10%; left:14%;"></div>
+    <div class="frame" data-reveal>
+      <p class="eyebrow on-dark">The Nikah Of</p>
+      <div class="divider"><span class="line"></span><span class="diamond"></span><span class="line"></span></div>
+      <div class="monogram-big">A &amp; A</div>
+      <div class="names-sub">Asjad &amp; Amna</div>
+      <div class="date-line">19 . 09 . 2026</div>
+      <a href="#names" class="btn">Open Invitation</a>
+    </div>
+  </section>
+
+  <!-- ================= NAMES ================= -->
+  <section id="names">
+    <div class="dot" style="top:12%; right:18%;"></div>
+    <div class="dot" style="bottom:22%; left:12%;"></div>
+    <div class="stack" data-reveal>
+      <p class="eyebrow">Together With Their Families</p>
+      <div class="monogram-script">Asjad <span class="amp">&amp;</span> Amna</div>
+      <div class="divider"><span class="line"></span><span class="diamond"></span><span class="line"></span></div>
+      <p class="lead-italic">request the honour of your presence</p>
+      <p class="lead-plain">at the Nikah ceremony uniting their families</p>
+    </div>
+    <p class="hint" data-reveal>Scroll To Unfold</p>
+  </section>
+
+  <!-- ================= WELCOME / VERSE ================= -->
+  <section id="welcome">
+    <div class="stack" data-reveal>
+      <div class="oval"><span>A&amp;A</span></div>
+      <p class="arabic bismillah">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</p>
+      <p class="arabic ayah">وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُم مِّنْ أَنفُسِكُمْ أَزْوَاجًا لِّتَسْكُنُوا إِلَيْهَا وَجَعَلَ بَيْنَكُم مَّوَدَّةً وَرَحْمَةً</p>
+      <p class="verse-en">"And among His signs is that He created for you, from among yourselves, mates so that you may find peace in them; and He placed between you affection and mercy." — Surah Ar-Rum 30:21</p>
+      <p class="welcome-msg">With hearts full of gratitude, we invite you to witness the Nikah of</p>
+      <p class="names-urdu">اسجد <span style="color:var(--cream)">&amp;</span> آمنہ</p>
+      <p class="welcome-msg">a moment where two families become one, and two souls begin their journey together in the sight of Allah.</p>
+      <p class="welcome-close">Your presence would mean the world to us.</p>
+    </div>
+  </section>
+
+  <!-- ================= COUNTDOWN ================= -->
+  <section id="countdown">
+    <div class="stack" data-reveal>
+      <svg width="56" height="56" viewBox="0 0 56 56" fill="none" style="margin-bottom:6px;">
+        <circle cx="20" cy="26" r="12" stroke="#6d1723" stroke-width="1.2"/>
+        <circle cx="34" cy="26" r="12" stroke="#c69a5c" stroke-width="1.2"/>
+        <path d="M27 12 L30 18 L24 18 Z" stroke="#c69a5c" stroke-width="1.2" stroke-linejoin="round"/>
+      </svg>
+      <p class="cd-title">Countdown</p>
+      <p class="cd-sub">to the day our hearts unite</p>
+      <div class="cd-row">
+        <div><span class="cd-num" id="cd-days">00</span><span class="cd-label">Days</span></div>
+        <span class="cd-sep">.</span>
+        <div><span class="cd-num" id="cd-hours">00</span><span class="cd-label">Hours</span></div>
+        <span class="cd-sep">.</span>
+        <div><span class="cd-num" id="cd-mins">00</span><span class="cd-label">Minutes</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= VENUE ================= -->
+  <section id="venue">
+    <div class="stack" data-reveal>
+      <p class="venue-title">The Venue</p>
+      <p class="lead-italic" style="color:var(--gold-light); margin-bottom:0;">Where we celebrate</p>
+      <div class="divider"><span class="line"></span><span class="diamond"></span><span class="line"></span></div>
+
+      <div class="venue-card">
+        <span class="corner tl"></span><span class="corner tr"></span>
+        <span class="corner bl"></span><span class="corner br"></span>
+
+        <svg class="venue-art" viewBox="0 0 300 150" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <g stroke="#c69a5c" stroke-width="1.3" stroke-linecap="round">
+            <line x1="66" y1="120" x2="66" y2="58"/>
+            <path d="M54,128 L78,128 L66,118 Z"/>
+            <path d="M66,58 C60,48 60,40 66,34 C72,40 72,48 66,58 Z"/>
+          </g>
+          <g stroke="#c69a5c" stroke-width="1.3" stroke-linecap="round">
+            <line x1="234" y1="120" x2="234" y2="58"/>
+            <path d="M222,128 L246,128 L234,118 Z"/>
+            <path d="M234,58 C228,48 228,40 234,34 C240,40 240,48 234,58 Z"/>
+          </g>
+          <g stroke="#7c2431" stroke-width="1">
+            <path d="M128,92 Q118,86 112,74"/>
+            <path d="M172,92 Q182,86 188,74"/>
+          </g>
+          <g stroke="#6d1723" stroke-width="1.3" stroke-linejoin="round">
+            <path d="M136,128 L133,104 Q133,96 141,96 L159,96 Q167,96 164,104 L161,128 Z"/>
+            <line x1="130" y1="128" x2="170" y2="128"/>
+          </g>
+          <g stroke="#6d1723" stroke-width="1.1">
+            <circle cx="150" cy="80" r="9"/>
+            <circle cx="137" cy="88" r="7.5"/>
+            <circle cx="163" cy="88" r="7.5"/>
+            <circle cx="144" cy="70" r="6.5"/>
+            <circle cx="156" cy="70" r="6.5"/>
+          </g>
+        </svg>
+
+        <p class="venue-name">Emerald Banquet Hall No. 8</p>
+        <p class="venue-sub">Garrison Golf &amp; Country Club<br>Saddar Town, Lahore</p>
+      </div>
+
+      <p class="venue-desc">Join us for an intimate Nikah ceremony, filled with prayers, blessings and joy.</p>
+      <a href="https://maps.app.goo.gl/VfZRZEmBtHz1UFiV7?g_st=ic" target="_blank" rel="noopener" class="btn" style="margin-bottom:36px;">View On Map</a>
+
+      <div class="divider"><span class="line"></span><span class="diamond"></span><span class="line"></span></div>
+
+      <div class="time-num">12:00<sup>PM</sup> – 4:00<sup>PM</sup></div>
+      <p class="venue-date">Saturday, September 19, 2026</p>
+      <p class="venue-fine">Please join us on time to share in every moment of the ceremony.</p>
+    </div>
+  </section>
+
+  <!-- ================= ADULTS-ONLY NOTICE ================= -->
+  <section id="notice">
+    <div class="notice-card" data-reveal>
+      <span class="ncorner tl"></span><span class="ncorner tr"></span>
+      <p class="notice-text">As much as we adore your little ones, this Nikah celebration is reserved for our adult guests only.</p>
+      <span class="ncorner bl"></span><span class="ncorner br"></span>
+    </div>
+  </section>
+
+  <!-- ================= CLOSING ================= -->
+  <section id="closing">
+    <div class="stack" data-reveal>
+      <p class="close-names">Asjad &amp; Amna</p>
+      <p class="close-date">September 19, 2026</p>
+      <svg class="rings" viewBox="0 0 100 100" fill="none">
+        <circle cx="38" cy="58" r="26" stroke="#e8cfa0" stroke-width="1.4"/>
+        <circle cx="62" cy="58" r="26" stroke="#e8cfa0" stroke-width="1.4"/>
+        <path d="M50 34 L58 44 L42 44 Z" stroke="#c69a5c" stroke-width="1.4" stroke-linejoin="round"/>
+        <line x1="50" y1="34" x2="50" y2="24" stroke="#c69a5c" stroke-width="1.2"/>
+      </svg>
+      <p class="close-msg">We would be delighted to have you with us as we begin this new chapter. For more details, feel free to reach out.</p>
+
+      <div class="contact-block">
+        <div class="contact-side">
+          <p class="contact-label">Groom's Side</p>
+          <div class="contact-nums">
+            <a href="tel:+923174668595">0317 4668595</a>
+            <a href="tel:+923224510672">0322 4510672</a>
+            <a href="tel:+923154279420">0315 4279420</a>
+          </div>
+        </div>
+        <div class="contact-side">
+          <p class="contact-label">Bride's Side</p>
+          <div class="contact-nums">
+            <a href="tel:+4915211884733">+49 1521 1884733</a>
+            <a href="tel:+923005864020">+92 300 5864020</a>
+            <a href="tel:+923064041670">+92 306 4041670</a>
+            <a href="tel:+923074339053">+92 307 4339053</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>WITH LOVE — ASJAD &amp; AMNA</footer>
+</div>
+
+<script>
+  // Scroll reveal
+  const revealEls = document.querySelectorAll('[data-reveal]');
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){ e.target.classList.add('in-view'); }
+    });
+  }, { threshold:0.25 });
+  revealEls.forEach(el=>io.observe(el));
+
+  // Countdown
+  const target = new Date('2026-09-19T12:00:00');
+  function updateCountdown(){
+    const now = new Date();
+    let diff = target - now;
+    if(diff < 0) diff = 0;
+    const days = Math.floor(diff / (1000*60*60*24));
+    const hours = Math.floor((diff % (1000*60*60*24)) / (1000*60*60));
+    const mins = Math.floor((diff % (1000*60*60)) / (1000*60));
+    document.getElementById('cd-days').textContent = String(days).padStart(2,'0'
